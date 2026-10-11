@@ -1,0 +1,571 @@
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111111">
+
+  <title>Administración | Gorrión Automotores</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+
+  <style>
+    [hidden] {
+      display: none !important;
+    }
+
+    #extraVehicleFields {
+      grid-column: 1 / -1;
+      width: 100%;
+    }
+
+ 
+/* ENCABEZADO: LOGO CENTRADO Y COMPACTO */
+.admin-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 95px;
+  padding: 12px 180px;
+  background: #ffffff;
+  color: #111111;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.admin-header .admin-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-decoration: none;
+}
+
+.admin-header .admin-logo {
+  display: block;
+  width: auto;
+  height: 65px;
+  max-width: 220px;
+  object-fit: contain;
+}
+
+.admin-header .back-link {
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  background: #111111;
+  color: #ffffff;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.admin-header .back-link:hover {
+  background: #d71920;
+}
+
+
+    /* EQUIPAMIENTO Y ACCESORIOS: DOS COLUMNAS */
+    .equipment-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    .picker-section {
+      min-width: 0;
+    }
+
+    .picker-section > h3 {
+      margin-top: 0;
+    }
+
+    .equipment-category h4 {
+      margin: .75rem 0 .45rem;
+    }
+
+    /* OPCIONES UNA DEBAJO DE OTRA */
+    .equipment-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: .45rem;
+    }
+
+    .equipment-options label {
+      display: flex;
+      align-items: flex-start;
+      gap: .5rem;
+      line-height: 1.5;
+      min-width: 0;
+    }
+
+    .equipment-options input {
+      flex-shrink: 0;
+      margin-top: .25rem;
+    }
+
+    .equipment-add-row {
+      display: flex;
+      align-items: end;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+
+    .equipment-add-row label {
+      flex: 1 1 240px;
+    }
+
+    .admin-vehicle {
+      display: grid;
+      grid-template-columns: 130px minmax(0, 1fr);
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .admin-vehicle > img {
+      width: 130px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #eee;
+    }
+
+    .admin-vehicle h3 {
+      margin: 0 0 .5rem;
+      overflow-wrap: anywhere;
+    }
+
+    .admin-vehicle p {
+      margin: 0 0 .75rem;
+    }
+
+    .admin-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+
+    .admin-actions button {
+      cursor: pointer;
+    }
+
+    .admin-actions .sold {
+      color: #b42318;
+    }
+
+    .photo-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+    }
+
+    .photo-chip {
+      position: relative;
+      display: inline-flex;
+    }
+
+    .photo-chip img {
+      width: 100px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .photo-chip button {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      border: 0;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+      background: #b42318;
+      color: white;
+      font-size: 18px;
+    }
+
+    .message {
+      white-space: pre-line;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 760px) {
+      .admin-header {
+        flex-direction: column;
+        gap: .75rem;
+        padding: 1rem;
+      }
+
+      .admin-header .admin-logo {
+        height: 75px;
+        max-width: 100%;
+      }
+
+      .admin-header .back-link {
+        position: static;
+        transform: none;
+      }
+
+      /* En celulares, una sección debajo de la otra */
+      .equipment-columns {
+        grid-template-columns: 1fr;
+      }
+
+      .equipment-options {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-vehicle {
+        grid-template-columns: 95px minmax(0, 1fr);
+        gap: .75rem;
+      }
+
+      .admin-vehicle > img {
+        width: 95px;
+        height: 85px;
+      }
+    }
+  </style>
+
+  <script type="module" src="admin.js"></script>
+</head>
+
+<body>
+  <!-- ENCABEZADO CON EL LOGO OFICIAL -->
+  <header class="admin-header">
+    <a class="admin-brand" href="index.html" aria-label="Gorrión Automotores">
+      <img
+        src="LogoGA.png"
+        alt="Gorrión Automotores"
+        class="admin-logo"
+      >
+    </a>
+
+    <a class="back-link" href="index.html">← Ver sitio público</a>
+  </header>
+
+  <main class="admin-main">
+
+    <!-- INICIO DE SESIÓN -->
+    <section class="login-panel" id="loginPanel">
+      <p class="eyebrow">ACCESO RESTRINGIDO</p>
+      <h1>Panel de administración</h1>
+
+      <p>
+        Ingresá con la cuenta autorizada para administrar las publicaciones.
+      </p>
+
+      <form id="loginForm">
+        <label>
+          Correo electrónico
+          <input
+            id="email"
+            type="email"
+            autocomplete="username"
+            required
+            value="axelalves2114@gmail.com"
+          >
+        </label>
+
+        <label>
+          Contraseña
+          <input
+            id="password"
+            type="password"
+            autocomplete="current-password"
+            required
+          >
+        </label>
+
+        <button class="btn primary" type="submit">
+          INGRESAR
+        </button>
+
+        <p class="message" id="loginMessage" role="status"></p>
+      </form>
+    </section>
+
+    <!-- PANEL DE ADMINISTRACIÓN -->
+    <section class="dashboard" id="dashboard" hidden>
+
+      <div class="dashboard-heading">
+        <div>
+          <p class="eyebrow">PANEL PRIVADO</p>
+          <h1>Vehículos</h1>
+          <p>
+            Administrá las publicaciones que se muestran en el sitio público.
+          </p>
+        </div>
+
+        <button class="btn secondary" id="logoutBtn" type="button">
+          Cerrar sesión
+        </button>
+      </div>
+
+      <div class="admin-columns">
+
+        <!-- FORMULARIO DE VEHÍCULOS -->
+        <section class="panel form-panel">
+
+          <div class="panel-heading">
+            <h2 id="formTitle">Publicar vehículo</h2>
+
+            <button
+              class="text-button"
+              id="cancelEditBtn"
+              type="button"
+              hidden
+            >
+              Cancelar edición
+            </button>
+          </div>
+
+          <form id="vehicleForm">
+
+            <input id="vehicleId" type="hidden">
+
+            <div class="form-grid">
+
+              <label>
+                Tipo de vehículo
+                <select id="tipo" required>
+                  <option value="auto">Auto</option>
+                  <option value="camioneta">Camioneta</option>
+                  <option value="moto">Moto</option>
+                </select>
+              </label>
+
+              <label>
+                Condición
+                <select id="condicion">
+                  <option value="Usado">Usado</option>
+                  <option value="Nuevo">Nuevo</option>
+                </select>
+              </label>
+
+              <label>
+                Marca
+                <select id="marca" required>
+                  <option value="">Seleccioná una marca</option>
+                </select>
+              </label>
+
+              <label id="marcaOtraLabel" hidden>
+                Especificá la marca
+                <input
+                  id="marcaOtra"
+                  maxlength="60"
+                  autocomplete="off"
+                  placeholder="Escribí la marca"
+                >
+              </label>
+
+              <label>
+                Modelo
+                <input id="modelo" required maxlength="80">
+              </label>
+
+              <label class="full">
+                Versión
+                <input
+                  id="version"
+                  maxlength="100"
+                  placeholder="Ej. XEI 2.0 CVT"
+                >
+              </label>
+
+              <label>
+                Año
+                <input
+                  id="anio"
+                  type="number"
+                  min="1900"
+                  max="2100"
+                  required
+                >
+              </label>
+
+              <label>
+                Kilómetros
+                <input id="kilometros" type="number" min="0">
+              </label>
+
+              <label>
+                Precio
+                <input
+                  id="precio"
+                  type="number"
+                  min="0"
+                  step="1"
+                  placeholder="Vacío si es a consultar"
+                >
+              </label>
+
+              <label>
+                Moneda
+                <select id="moneda">
+                  <option value="ARS">Pesos (ARS)</option>
+                  <option value="USD">Dólares (USD)</option>
+                </select>
+              </label>
+
+              <label>
+                Combustible
+                <select id="combustible">
+                  <option value="">Seleccionar</option>
+                  <option value="Nafta">Nafta</option>
+                  <option value="Diésel">Diésel</option>
+                  <option value="GNC">GNC</option>
+                  <option value="Nafta/GNC">Nafta/GNC</option>
+                  <option value="Eléctrico">Eléctrico</option>
+                  <option value="Híbrido">Híbrido</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </label>
+
+              <label>
+                Transmisión
+                <select id="transmision">
+                  <option value="">Seleccionar</option>
+                  <option value="Manual">Manual</option>
+                  <option value="Automática">Automática</option>
+                  <option value="CVT">CVT</option>
+                  <option value="Semiautomática">Semiautomática</option>
+                  <option value="Otra">Otra</option>
+                </select>
+              </label>
+
+              <label>
+                Color
+                <select id="color">
+                  <option value="">Seleccionar</option>
+                  <option value="Blanco">Blanco</option>
+                  <option value="Negro">Negro</option>
+                  <option value="Gris">Gris</option>
+                  <option value="Plateado">Plateado</option>
+                  <option value="Rojo">Rojo</option>
+                  <option value="Azul">Azul</option>
+                  <option value="Verde">Verde</option>
+                  <option value="Bordó">Bordó</option>
+                  <option value="Beige">Beige</option>
+                  <option value="Marrón">Marrón</option>
+                  <option value="Amarillo">Amarillo</option>
+                  <option value="Naranja">Naranja</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </label>
+
+              <!-- admin.js genera aquí los campos según el vehículo -->
+
+              <!-- FOTOS -->
+              <label class="full">
+                Fotos del vehículo
+                <input
+                  id="fotos"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/avif"
+                  multiple
+                >
+                <small>
+                  Podés seleccionar varias fotos. Cada archivo puede pesar
+                  hasta 8 MB.
+                </small>
+              </label>
+
+              <div class="full" id="existingPhotos"></div>
+
+              <!-- DESCRIPCIÓN -->
+              <label class="full">
+                Descripción
+                <textarea
+                  id="descripcion"
+                  rows="4"
+                  maxlength="3000"
+                  placeholder="Detalles importantes del vehículo"
+                ></textarea>
+              </label>
+
+              <!-- EQUIPAMIENTO Y ACCESORIOS -->
+              <div class="full equipment-picker" id="equipmentPicker">
+                <p class="equipment-help">
+                  El equipamiento y los accesorios aparecerán según el tipo
+                  de vehículo seleccionado.
+                </p>
+              </div>
+
+              <!-- OPCIONES DE PUBLICACIÓN -->
+              <div class="full publication-options">
+                <label>
+                  <input id="destacado" type="checkbox">
+                  Destacar esta publicación
+                </label>
+
+                <label>
+                  <input id="permuta" type="checkbox">
+                  Acepta permuta
+                </label>
+
+                <label>
+                  <input id="financiacion" type="checkbox">
+                  Ofrece financiación
+                </label>
+              </div>
+
+            </div>
+
+            <p class="message" id="formMessage" role="status"></p>
+
+            <button class="btn primary" id="saveVehicleBtn" type="submit">
+              PUBLICAR VEHÍCULO
+            </button>
+
+          </form>
+        </section>
+
+        <!-- LISTADO DE PUBLICACIONES -->
+        <section class="panel listings-panel">
+
+          <div class="panel-heading">
+            <h2>Publicaciones</h2>
+
+            <span>
+              Total:
+              <strong id="listingCount">0</strong>
+            </span>
+          </div>
+
+          <p class="muted">
+            Desde acá podés editar tus vehículos.
+          </p>
+
+          <p class="message" id="listingMessage" role="status"></p>
+
+          <div id="vehicleList">
+            <p class="muted">Cargando publicaciones...</p>
+          </div>
+
+        </section>
+
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+
+

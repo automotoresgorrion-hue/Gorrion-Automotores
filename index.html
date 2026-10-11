@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
+  <meta name="description" content="Encontrá tu próximo vehículo en Gorrión Automotores. Autos, camionetas y motos. Consultas directas por WhatsApp.">
+
+  <title>Gorrión Automotores | Encontrá tu próximo vehículo</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+   
+/* LOGO OFICIAL - ENCABEZADO PUBLICO */
+.site-header .brand-logo-img {
+  display: block;
+  width: 190px !important;
+  height: 58px !important;
+  max-width: 100%;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.site-header .brand {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.site-header .nav-wrap {
+  min-width: 0;
+}
+
+.footer-brand .brand-logo-img {
+  display: block;
+  width: 165px;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .site-header .brand-logo-img {
+    width: 175px !important;
+    height: 52px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-header .brand-logo-img {
+    width: 150px !important;
+    height: 46px !important;
+  }
+
+  .footer-brand .brand-logo-img {
+    width: 145px;
+  }
+}
+  </style>
+
+  <script type="module" src="script.js"></script>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>Tu próximo vehículo está más cerca.</span>
+      <a href="#contacto">Contactanos por WhatsApp <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+
+      <!-- LOGO OFICIAL -->
+      <a class="brand" href="#inicio" aria-label="Gorrión Automotores, inicio">
+        <img
+          src="LogoGA.png"
+          alt="Gorrión Automotores"
+          class="brand-logo-img"
+        >
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+
+      <nav class="main-nav" id="mainNav" aria-label="Navegación principal">
+        <a class="nav-link active" href="#inicio">Inicio</a>
+        <a class="nav-link" href="#vehiculos">Vehículos</a>
+        <a class="nav-link" href="#nosotros">Nosotros</a>
+        <a class="nav-contact" href="#contacto">Contactar <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-shade"></div>
+      <div class="container hero-content">
+        <p class="eyebrow"><span></span> GORRIÓN AUTOMOTORES</p>
+        <h1>ENCONTRÁ TU<br>PRÓXIMO <span>VEHÍCULO.</span></h1>
+        <p class="hero-description">Buscá, compará y elegí el vehículo ideal para vos. Te acompañamos en cada paso.</p>
+        <div class="hero-actions">
+          <a class="button button-red" href="#vehiculos">VER VEHÍCULOS <span>↘</span></a>
+          <a class="button button-outline" href="#contacto">HABLAR CON UN ASESOR</a>
+        </div>
+        <div class="hero-note"><span class="note-line"></span><span>Autos · Camionetas · Motos</span></div>
+      </div>
+      <div class="hero-index"><span>01</span><span class="index-line"></span><span>03</span></div>
+    </section>
+
+    <section class="search-section" aria-label="Buscar vehículos">
+      <div class="container">
+        <form class="search-panel" id="searchForm">
+          <label class="search-field search-wide">
+            <span>¿QUÉ ESTÁS BUSCANDO?</span>
+            <input id="searchInput" type="search" placeholder="Ej. Toyota Corolla, Honda..." autocomplete="off">
+          </label>
+
+          <label class="search-field">
+            <span>TIPO DE VEHÍCULO</span>
+            <select id="typeFilter">
+              <option value="todos">Todos los vehículos</option>
+              <option value="auto">Autos</option>
+              <option value="camioneta">Camionetas</option>
+              <option value="moto">Motos</option>
+            </select>
+          </label>
+
+          <label class="search-field">
+            <span>PRECIO MÁXIMO</span>
+            <select id="priceFilter">
+              <option value="0">Sin límite</option>
+              <option value="10000000">$ 10.000.000</option>
+              <option value="20000000">$ 20.000.000</option>
+              <option value="30000000">$ 30.000.000</option>
+              <option value="50000000">$ 50.000.000</option>
+            </select>
+          </label>
+
+          <button class="search-button" type="submit" aria-label="Buscar vehículos">⌕ <span>BUSCAR</span></button>
+        </form>
+      </div>
+    </section>
+
+    <section class="inventory section-pad" id="vehiculos">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow dark-eyebrow"><span></span> ENCONTRÁ EL TUYO</p>
+            <h2>VEHÍCULOS <span>DESTACADOS</span></h2>
+            <p class="section-subtitle">Explorá algunas de nuestras oportunidades.</p>
+          </div>
+          <div class="inventory-count">
+            <strong id="resultCount">0</strong>
+            <span>vehículos<br>disponibles</span>
+          </div>
+        </div>
+
+        <div class="filter-chips" role="group" aria-label="Filtrar por tipo">
+          <button class="chip active" type="button" data-chip="todos">Todos</button>
+          <button class="chip" type="button" data-chip="auto">Autos</button>
+          <button class="chip" type="button" data-chip="camioneta">Camionetas</button>
+          <button class="chip" type="button" data-chip="moto">Motos</button>
+        </div>
+
+        <div class="vehicle-grid" id="vehicleGrid" aria-live="polite"></div>
+
+        <div class="empty-state" id="emptyState" hidden>
+          <span class="empty-icon">⌕</span>
+          <h3>No encontramos vehículos</h3>
+          <p>Probá cambiar los filtros o buscar con otras palabras.</p>
+          <button class="button button-dark" id="clearFilters" type="button">LIMPIAR FILTROS</button>
+        </div>
+
+        <p class="demo-notice" id="catalogStatus" role="status">Cargando vehículos disponibles…</p>
+      </div>
+    </section>
+
+    <section class="why-section" id="nosotros">
+      <div class="container why-layout">
+        <div class="why-title">
+          <p class="eyebrow"><span></span> GORRIÓN AUTOMOTORES</p>
+          <h2>ENCONTRAR TU VEHÍCULO<br>DEBERÍA SER <span>SIMPLE.</span></h2>
+        </div>
+
+        <div class="why-items">
+          <article class="why-item">
+            <span class="why-number">01</span>
+            <div>
+              <h3>Elegí con información</h3>
+              <p>Revisá los datos y características de cada vehículo antes de consultar.</p>
+            </div>
+          </article>
+
+          <article class="why-item">
+            <span class="why-number">02</span>
+            <div>
+              <h3>Hablá directamente</h3>
+              <p>Contactá a nuestro equipo por WhatsApp para resolver tus dudas.</p>
+            </div>
+          </article>
+
+          <article class="why-item">
+            <span class="why-number">03</span>
+            <div>
+              <h3>Consultá por permutas</h3>
+              <p>Preguntanos por opciones de permuta y financiación según cada publicación.</p>
+            </div>
+          </article>
+
+          <article class="why-item">
+            <span class="why-number">04</span>
+            <div>
+              <h3>Visitá nuestra ubicación</h3>
+              <p>Estamos en Canaveri 1698, Olavarría, Buenos Aires.</p>
+              <a href="https://www.google.com/maps/search/?api=1&query=Cañaveri+1698%2C+Olavarría%2C+Buenos+Aires%2C+Argentina" target="_blank" rel="noopener noreferrer">Ver ubicación en Google Maps ↗</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contacto">
+      <div class="container contact-layout">
+        <div>
+          <p class="eyebrow"><span></span> ESTAMOS PARA AYUDARTE</p>
+          <h2>¿TENÉS ALGUNA<br><span>CONSULTA?</span></h2>
+          <p class="contact-description">Elegí con quién querés hablar y escribinos por WhatsApp.</p>
+        </div>
+
+        <div class="contact-cards">
+          <a class="contact-card" id="axelLink" href="#contacto" target="_blank" rel="noopener noreferrer">
+            <span class="contact-avatar">A</span>
+            <span class="contact-person"><strong>Axel</strong><small>Consultar por WhatsApp</small></span>
+            <span class="contact-arrow">↗</span>
+          </a>
+
+          <a class="contact-card" id="sebastianLink" href="#contacto" target="_blank" rel="noopener noreferrer">
+            <span class="contact-avatar">S</span>
+            <span class="contact-person"><strong>Sebastián</strong><small>Consultar por WhatsApp</small></span>
+            <span class="contact-arrow">↗</span>
+          </a>
+
+          <a class="contact-card" id="joaquinLink" href="#contacto" target="_blank" rel="noopener noreferrer">
+            <span class="contact-avatar">J</span>
+            <span class="contact-person"><strong>Joaquín</strong><small>Consultar por WhatsApp</small></span>
+            <span class="contact-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+
+      <!-- LOGO OFICIAL EN EL PIE DE PÁGINA -->
+      <a class="brand footer-brand" href="#inicio" aria-label="Gorrión Automotores, inicio">
+        <img
+          src="LogoGA.png"
+          alt="Gorrión Automotores"
+          class="brand-logo-img"
+        >
+      </a>
+
+      <p>Encontrá tu próximo vehículo.</p>
+      <span class="copyright">© <span id="year"></span> Gorrión Automotores</span>
+    </div>
+  </footer>
+
+  <a class="floating-whatsapp" id="floatingWhatsapp" href="#contacto" target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp">
+    <span>◔</span>
+    <span class="floating-label">CONSULTANOS</span>
+  </a>
+</body>
+</html>

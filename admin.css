@@ -1,0 +1,629 @@
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --red: #d71920;
+  --black: #111;
+  --muted: #777;
+  --line: #e5e5e5;
+}
+
+body {
+  margin: 0;
+  background: #f4f4f4;
+  color: #171717;
+  font: 14px/1.55 Montserrat, Arial, sans-serif;
+}
+
+.admin-header {
+  min-height: 76px;
+  background: #111;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px max(24px, calc((100vw - 1280px) / 2));
+  gap: 20px;
+}
+
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.admin-brand .mark {
+  width: 44px;
+  height: 44px;
+  background: var(--red);
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  font-size: 23px;
+  font-weight: 900;
+}
+
+.admin-brand b,
+.admin-brand small {
+  display: block;
+  line-height: 1.2;
+}
+
+.admin-brand b {
+  font-size: 18px;
+  letter-spacing: .1em;
+}
+
+.admin-brand small {
+  font-size: 9px;
+  letter-spacing: .14em;
+  color: #ff7378;
+  margin-top: 5px;
+}
+
+.back-link {
+  color: #fff;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.admin-main {
+  width: min(1280px, calc(100% - 36px));
+  margin: 36px auto 60px;
+}
+
+.login-panel,
+.panel {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 26px;
+  box-shadow: 0 8px 30px #00000008;
+}
+
+.login-panel {
+  max-width: 480px;
+  margin: 7vh auto;
+}
+
+.eyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  color: var(--red);
+  margin: 0 0 8px;
+}
+
+.login-panel h1,
+.dashboard h1 {
+  font-size: clamp(26px, 4vw, 36px);
+  line-height: 1.2;
+  margin: 0 0 10px;
+  font-weight: 900;
+  letter-spacing: -.04em;
+}
+
+.login-panel > p:not(.eyebrow),
+.dashboard-heading p,
+.muted {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #333;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+  padding: 11px 12px;
+  background: #fff;
+  color: #111;
+  font: inherit;
+  font-size: 13px;
+  min-width: 0;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid #d7192033;
+  border-color: var(--red);
+}
+
+.login-panel form {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.btn {
+  border: 0;
+  border-radius: 4px;
+  padding: 12px 16px;
+  font: 800 11px Montserrat, Arial, sans-serif;
+  letter-spacing: .06em;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+.primary {
+  background: var(--red);
+  color: #fff;
+}
+
+.primary:hover {
+  background: #b81017;
+}
+
+.secondary {
+  background: #222;
+  color: #fff;
+}
+
+.message {
+  font-size: 12px;
+  color: #555;
+  white-space: pre-line;
+  margin: 10px 0;
+}
+
+.message.error {
+  color: #b81017;
+}
+
+.message.success {
+  color: #16723b;
+}
+
+.dashboard-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.admin-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.panel-heading h2 {
+  font-size: 18px;
+  margin: 0;
+  font-weight: 900;
+}
+
+.text-button {
+  border: 0;
+  background: none;
+  color: var(--red);
+  font-weight: 700;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.form-grid small {
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.checks {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.checks label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+}
+
+.checks input {
+  width: auto;
+}
+
+.count {
+  background: #f7e8e8;
+  color: var(--red);
+  font-weight: 900;
+  padding: 5px 10px;
+  border-radius: 99px;
+}
+
+.vehicle-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.admin-vehicle {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.admin-vehicle img {
+  width: 100px;
+  height: 78px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #eee;
+}
+
+.admin-vehicle h3 {
+  font-size: 13px;
+  margin: 0 0 4px;
+}
+
+.admin-vehicle p {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.admin-actions button {
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 3px;
+  padding: 7px 9px;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-actions .sold {
+  color: #b81017;
+  border-color: #e8b7b9;
+}
+
+.admin-actions button:hover {
+  border-color: var(--red);
+}
+
+.photo-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.photo-chip {
+  position: relative;
+}
+
+.photo-chip img {
+  width: 76px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.photo-chip button {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.admin-footer {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+  font-size: 10px;
+}
+
+/* ==========================================
+   EQUIPAMIENTO POR CATEGORÍAS
+   ========================================== */
+
+.equipment-picker {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 16px;
+  background: #fcfcfc;
+  min-width: 0;
+}
+
+.equipment-main-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  color: #171717;
+  margin-bottom: 3px;
+}
+
+.equipment-help {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0 0 14px;
+}
+
+.equipment-category {
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+
+.equipment-category h3 {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 900;
+  color: #222;
+}
+
+.equipment-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px 14px;
+}
+
+.equipment-options label {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.4;
+}
+
+.equipment-options input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+  margin: 0;
+  accent-color: var(--red);
+}
+
+/* ==========================================
+   AGREGAR EQUIPAMIENTO PERSONALIZADO
+   ========================================== */
+
+.equipment-custom-label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.equipment-add-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.equipment-add-row label {
+  flex: 1;
+  min-width: 0;
+}
+
+.equipment-add-row .btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.equipment-custom-category .equipment-help {
+  margin-bottom: 10px;
+}
+
+/* ==========================================
+   ADAPTACIÓN A CELULARES Y TABLETS
+   ========================================== */
+
+@media (max-width: 920px) {
+  .admin-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-heading {
+    align-items: flex-start;
+  }
+
+  .listings-panel {
+    order: 2;
+  }
+}
+
+@media (max-width: 560px) {
+  .admin-header {
+    padding: 12px 16px;
+  }
+
+  .admin-brand b {
+    font-size: 15px;
+  }
+
+  .admin-brand small {
+    font-size: 8px;
+  }
+
+  .back-link {
+    font-size: 10px;
+  }
+
+  .admin-main {
+    width: calc(100% - 22px);
+    margin-top: 18px;
+  }
+
+  .login-panel,
+  .panel {
+    padding: 18px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: auto;
+  }
+
+  .checks {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .dashboard-heading {
+    flex-direction: column;
+  }
+
+  .admin-vehicle {
+    grid-template-columns: 78px minmax(0, 1fr);
+  }
+
+  .admin-vehicle img {
+    width: 78px;
+    height: 70px;
+  }
+
+  .equipment-picker {
+    padding: 12px;
+  }
+
+  .equipment-options {
+    grid-template-columns: 1fr;
+  }
+
+  .equipment-add-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .equipment-add-row .btn {
+    width: 100%;
+  }
+}
+
+/* Opciones de publicación: checkbox a la izquierda */
+form .checks.full {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+form .checks.full > label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.4;
+}
+
+form .checks.full > label > input[type="checkbox"] {
+  order: -1;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  min-width: 15px;
+  flex: 0 0 15px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--red);
+}
+
+
+/* OPCIONES DE PUBLICACIÓN */
+#vehicleForm .publication-options {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+#vehicleForm .publication-options > label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.4;
+}
+
+#vehicleForm .publication-options > label > input[type="checkbox"] {
+  order: -1;
+  appearance: auto;
+  -webkit-appearance: checkbox;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  min-width: 15px;
+  flex: 0 0 15px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--red);
+}
