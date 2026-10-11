@@ -115,16 +115,74 @@
       margin-top: .25rem;
     }
 
-    .equipment-add-row {
-      display: flex;
-      align-items: end;
-      gap: .75rem;
-      flex-wrap: wrap;
-    }
+   
 
-    .equipment-add-row label {
-      flex: 1 1 240px;
-    }
+/* EQUIPAMIENTO PERSONALIZADO */
+.equipment-custom-category {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin: 1.25rem 0 0;
+  padding: 1rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.equipment-custom-category h3 {
+  margin: 0 0 0.5rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.equipment-custom-category .equipment-help {
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+.equipment-add-row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 0;
+}
+
+.equipment-add-row label {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+.equipment-add-row input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin-top: 0.35rem;
+}
+
+.equipment-add-row .btn {
+  align-self: flex-start;
+  width: auto;
+  min-height: 38px;
+  padding: 0.6rem 1rem;
+  margin: 0;
+  font-size: 0.85rem;
+  white-space: normal;
+}
+
+@media (max-width: 560px) {
+  .equipment-custom-category {
+    padding: 0.75rem;
+  }
+
+  .equipment-add-row .btn {
+    max-width: 100%;
+  }
+}
 
     .admin-vehicle {
       display: grid;
