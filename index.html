@@ -1,11 +1,17 @@
 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111111">
+  <meta name="theme-color" content="#d71920">
   <meta name="description" content="Encontrá tu próximo vehículo en Gorrión Automotores. Autos, camionetas y motos. Consultas directas por WhatsApp.">
+
+  <link rel="manifest" href="./manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Gorrión Autos">
 
   <title>Gorrión Automotores | Encontrá tu próximo vehículo</title>
 
@@ -277,5 +283,16 @@
     <span>◔</span>
     <span class="floating-label">CONSULTANOS</span>
   </a>
+  
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./service-worker.js")
+        .then(() => console.log("Gorrión Automotores: PWA activada"))
+        .catch((error) => console.error("Error al activar la PWA:", error));
+    });
+  }
+</script>
+
 </body>
 </html>
