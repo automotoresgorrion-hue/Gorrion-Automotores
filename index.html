@@ -294,5 +294,58 @@
   }
 </script>
 
+<!-- Acceso de regreso a administración -->
+<a
+  id="volverAdmin"
+  href="./admin.html"
+  style="
+    display: none;
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 9999;
+    padding: 10px 14px;
+    background: #c92332;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  "
+>
+  ← Volver a administración
+</a>
+
+<script>
+  (() => {
+    const clave = "gorrionModoAdmin";
+    const boton = document.getElementById("volverAdmin");
+    const parametros = new URLSearchParams(window.location.search);
+
+    if (parametros.get("modoAdmin") === "1") {
+      localStorage.setItem(clave, "true");
+      window.history.replaceState(
+        {},
+        document.title,
+        window.location.pathname + window.location.hash
+      );
+    }
+
+    if (parametros.get("modoAdmin") === "0") {
+      localStorage.removeItem(clave);
+      window.history.replaceState(
+        {},
+        document.title,
+        window.location.pathname + window.location.hash
+      );
+    }
+
+    if (localStorage.getItem(clave) === "true") {
+      boton.style.display = "block";
+    }
+  })();
+</script>
+
 </body>
 </html>
