@@ -1,6 +1,19 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
-import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, serverTimestamp, query, orderBy, setDoc } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  serverTimestamp,
+  query,
+  orderBy,
+  setDoc,
+  runTransaction
+} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBxuJmaeJ_ZsjRuZw_mAoZmBvbqAjAZiNQ",
@@ -1093,8 +1106,8 @@ $('vehicleForm').addEventListener('submit', async e => {
       foto: photos[0]?.url || '',
       descripcion: $('descripcion').value.trim(),
       equipamiento: obtenerEquipamientoSeleccionado(),
-      estado: 'disponible',
-      updatedAt: serverTimestamp()
+      estado: old?.estado || 'disponible',
+updatedAt: serverTimestamp()
     };
 
     if (id) {
@@ -1162,43 +1175,58 @@ $('cancelEditBtn').addEventListener('click', resetForm);
 
 
 function prepararHistorialVendidos() {
-  if ($('soldHistorySection')) return;
+  let section = $('soldHistorySection');
 
-  const section = document.createElement('section');
-  section.id = 'soldHistorySection';
-  section.className = 'admin-section';
+  if (!section) {
+    section = document.createElement('section');
+    section.id = 'soldHistorySection';
+    section.className = 'panel listings-panel';
+section.style.marginTop = '24px';
 
-  section.innerHTML = `
-    <h2>Historial de vendidos</h2>
-    <p class="muted">
-      Vehículos que fueron marcados como vendidos.
-    </p>
+    section.innerHTML = `
+      <div class="panel-heading">
+        <h2>Historial de ventas</h2>
+        <span>
+          Total: <strong id="soldCount">0</strong>
+        </span>
+      </div>
 
-    <div class="sold-summary">
-      <strong id="soldCount">0</strong>
-      <span>vehículos vendidos</span>
-    </div>
+      <p class="muted">
+        Vehículos que fueron marcados como vendidos.
+      </p>
 
-    <div id="soldHistoryList">
-      <p class="muted">Cargando historial...</p>
-    </div>
-  `;
+      <div id="soldHistoryList">
+        <p class="muted">Cargando historial...</p>
+      </div>
+    `;
+  }
 
-  $('dashboard').appendChild(section);
+  const vehicleList = $('vehicleList');
+  const publicationsPanel = vehicleList?.closest('.listings-panel');
+
+  if (publicationsPanel) {
+    // Lo coloca dentro del panel de publicaciones,
+    // inmediatamente después de la lista de vehículos.
+    vehicleList.insertAdjacentElement('afterend', section);
+  }
 }
 
 function renderSoldHistory() {
   prepararHistorialVendidos();
 
-  $('soldCount').textContent = currentSold.length;
+  $('soldCount').textContent = String(currentSold.length);
 
   $('soldHistoryList').innerHTML = currentSold.length
     ? currentSold.map(v => {
-        const foto = v.foto ||
-          'https://placehold.co/300x200/eeeeee/333333?text=Vehiculo+vendido';
+        const foto = v.fotos?.[0]?.url ||
+          v.foto ||
+          'https://placehold.co/300x200/eeeeee/333333?text=Vehiculo';
 
-        const fecha = v.soldAt?.toDate
-          ? v.soldAt.toDate().toLocaleDateString('es-AR')
+        const estado = 'Vendido';
+const fechaRegistro = v.soldAt || v.fechaCambioEstado;
+
+        const fecha = fechaRegistro?.toDate
+          ? fechaRegistro.toDate().toLocaleDateString('es-AR')
           : 'Fecha no disponible';
 
         return `
@@ -1210,8 +1238,12 @@ function renderSoldHistory() {
 
               <p>
                 Año: ${esc(v.anio || 'No informado')} ·
-                ${esc(money(v))} ·
-                Vendido el ${esc(fecha)}
+                ${esc(money(v))}
+              </p>
+
+              <p>
+                Estado: <strong>${esc(estado)}</strong> ·
+                Registrado el ${esc(fecha)}
               </p>
             </div>
           </article>
@@ -1219,7 +1251,6 @@ function renderSoldHistory() {
       }).join('')
     : '<p class="muted">Todavía no hay vehículos vendidos registrados.</p>';
 }
-
 
 function renderList() {
   $('listingCount').textContent = String(currentVehicles.length);
@@ -1230,6 +1261,30 @@ function renderList() {
           v.foto ||
           'https://placehold.co/300x200/eeeeee/333333?text=Sin+foto';
 
+        const estado = v.estado || 'disponible';
+
+        const estadoVisual = `
+  <span class="estado-badge estado-${esc(estado)}">
+    ${esc(estado.toUpperCase())}
+  </span>
+`;
+
+        let accionesEstado = '';
+
+        if (estado === 'disponible') {
+  accionesEstado = `
+    <button type="button" data-reservar="${esc(v.id)}">
+      Reservar
+    </button>
+  `;
+} else if (estado === 'reservado') {
+  accionesEstado = `
+    <button type="button" data-disponible="${esc(v.id)}">
+      Volver a disponible
+    </button>
+  `;
+}
+
         return `
           <article class="admin-vehicle">
             <img src="${esc(foto)}" alt="">
@@ -1238,22 +1293,35 @@ function renderList() {
               <h3>${esc(title(v))}</h3>
 
               <p>
-                ${esc(v.anio || 'Año a consultar')} ·
-                ${esc(money(v))} ·
-                ${esc(v.estado || 'disponible')}
-              </p>
+  ${esc(v.anio || 'Año a consultar')} ·
+  ${esc(money(v))}
+</p>
+
+${estadoVisual}
 
               <div class="admin-actions">
                 <button type="button" data-edit="${esc(v.id)}">
                   Editar
                 </button>
 
+                ${accionesEstado}
+
+                ${estado !== 'señado' ? `
+  <button
+    type="button"
+    class="sold"
+    data-senado="${esc(v.id)}"
+  >
+    Marcar señado
+  </button>
+` : ''}
+
                 <button
                   type="button"
                   class="sold"
                   data-sold="${esc(v.id)}"
                 >
-                  Marcar vendido y eliminar
+                  Marcar vendido
                 </button>
               </div>
             </div>
@@ -1263,78 +1331,156 @@ function renderList() {
     : '<p class="muted">Todavía no hay publicaciones.</p>';
 }
 
+
 $('vehicleList').addEventListener('click', async e => {
   const edit = e.target.closest('[data-edit]');
 
   if (edit) {
     const v = currentVehicles.find(x => x.id === edit.dataset.edit);
-
-    if (v) {
-      beginEdit(v);
-    }
-
+    if (v) beginEdit(v);
     return;
   }
 
-  const sold = e.target.closest('[data-sold]');
-  if (!sold) return;
+  const reservar = e.target.closest('[data-reservar]');
+  const disponible = e.target.closest('[data-disponible]');
+  const senado = e.target.closest('[data-senado]');
+  const vendido = e.target.closest('[data-sold]');
 
-  const v = currentVehicles.find(x => x.id === sold.dataset.sold);
+  const boton = reservar || disponible || senado || vendido;
+  if (!boton) return;
+
+  const id = boton.dataset.reservar ||
+    boton.dataset.disponible ||
+    boton.dataset.senado ||
+    boton.dataset.sold;
+
+  const v = currentVehicles.find(x => x.id === id);
   if (!v) return;
 
+  let nuevoEstado = '';
+
+  if (reservar) nuevoEstado = 'reservado';
+  if (disponible) nuevoEstado = 'disponible';
+  if (senado) nuevoEstado = 'señado';
+  if (vendido) nuevoEstado = 'vendido';
+
+  const nombres = {
+    disponible: 'disponible',
+    reservado: 'reservado',
+    señado: 'señado',
+    vendido: 'vendido'
+  };
+
   if (!confirm(
-    `¿Marcar como vendido “${title(v)}”? ` +
-    'Se guardará en el historial y dejará de aparecer en el catálogo público.'
+    `¿Cambiar el estado de "${title(v)}" a ${nombres[nuevoEstado]}?`
   )) {
     return;
   }
 
-  sold.disabled = true;
-
-  msg('listingMessage', 'Registrando vehículo vendido…');
+  boton.disabled = true;
+  msg('listingMessage', 'Actualizando estado…');
 
   try {
-    await setDoc(
-      doc(db, 'historialVendidos', v.id),
-      {
-        vehiculoId: v.id,
-        tipo: v.tipo || '',
-        marca: v.marca || '',
-        modelo: v.modelo || '',
-        version: v.version || '',
-        titulo: title(v),
-        anio: v.anio ?? null,
-        precio: v.precio ?? null,
-        moneda: v.moneda || 'ARS',
-        foto: v.fotos?.[0]?.url || v.foto || '',
-        fotos: v.fotos || [],
-        soldAt: serverTimestamp()
-      }
-    );
+    const referencia = doc(db, 'vehiculos', v.id);
 
-    await deleteDoc(doc(db, 'vehiculos', v.id));
+    await runTransaction(db, async transaction => {
+      const snapshot = await transaction.get(referencia);
+
+      if (!snapshot.exists()) {
+        throw new Error('El vehículo ya no está en las publicaciones.');
+      }
+
+      const datos = snapshot.data();
+      const estadoActual = datos.estado || 'disponible';
+
+      if (estadoActual !== (v.estado || 'disponible')) {
+        throw new Error(
+          'El estado cambió. Esperá a que se actualice la lista e intentá nuevamente.'
+        );
+      }
+
+      // DISPONIBLE O RESERVADO
+      if (nuevoEstado === 'disponible' || nuevoEstado === 'reservado') {
+        if (!['disponible', 'reservado'].includes(estadoActual)) {
+          throw new Error(
+            'Solo se puede cambiar a disponible o reservado desde esos estados.'
+          );
+        }
+
+        transaction.update(referencia, {
+          estado: nuevoEstado,
+          updatedAt: serverTimestamp()
+        });
+
+        return;
+      }
+
+      // SEÑADO: permanece en vehiculos y NO pasa al historial.
+      if (nuevoEstado === 'señado') {
+        if (!['disponible', 'reservado'].includes(estadoActual)) {
+          throw new Error(
+            'Solo se puede señar un vehículo disponible o reservado.'
+          );
+        }
+
+        transaction.update(referencia, {
+          estado: 'señado',
+          updatedAt: serverTimestamp(),
+          senadoAt: serverTimestamp()
+        });
+
+        return;
+      }
+
+      // VENDIDO: recién ahora pasa al historial.
+      if (nuevoEstado === 'vendido') {
+        if (!['disponible', 'reservado', 'señado'].includes(estadoActual)) {
+          throw new Error(
+            'El vehículo no puede marcarse como vendido desde este estado.'
+          );
+        }
+
+        const historialRef = doc(db, 'historialVendidos', v.id);
+
+        transaction.set(historialRef, {
+          ...datos,
+          vehiculoId: v.id,
+          estado: 'vendido',
+          titulo: title(datos),
+          fechaCambioEstado: serverTimestamp(),
+          soldAt: serverTimestamp()
+        });
+
+        transaction.delete(referencia);
+      }
+    });
 
     msg(
       'listingMessage',
-      'Vehículo registrado en el historial de vendidos y retirado del catálogo.',
+      nuevoEstado === 'señado'
+        ? 'Vehículo señado. Permanece registrado y no se agregó al historial de ventas.'
+        : nuevoEstado === 'vendido'
+          ? 'Vehículo vendido y trasladado al historial de ventas.'
+          : `Vehículo actualizado a ${nuevoEstado}.`,
       'success'
     );
 
-    if ($('vehicleId').value === v.id) {
+    if (
+      nuevoEstado === 'vendido' &&
+      $('vehicleId').value === v.id
+    ) {
       resetForm();
     }
-
   } catch (err) {
     console.error(err);
 
     msg(
       'listingMessage',
-      'No se pudo completar la operación: ' + err.message,
+      'No se pudo actualizar el estado: ' + err.message,
       'error'
     );
-
   } finally {
-    sold.disabled = false;
+    boton.disabled = false;
   }
 });
 

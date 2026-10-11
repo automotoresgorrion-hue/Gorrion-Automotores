@@ -694,3 +694,31 @@ form .checks.full > label > input[type="checkbox"] {
   padding: 0;
   accent-color: var(--red);
 }
+
+.estado-badge {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+}
+
+.estado-disponible {
+  background: #d1fae5;
+  color: #065f46;
+  border: 2px solid #10b981;
+}
+
+.estado-reservado {
+  background: #fef3c7;
+  color: #92400e;
+  border: 2px solid #f59e0b;
+}
+
+.estado-señado {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 2px solid #ef4444;
+}

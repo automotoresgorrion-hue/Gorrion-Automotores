@@ -243,13 +243,13 @@ function crearTarjeta(vehiculo) {
           loading="lazy"
           onerror="this.onerror=null;this.src='https://placehold.co/900x600/eeeeee/333333?text=Foto+del+vehiculo'">
 
-        <span class="vehicle-tag">
-          ${escaparHTML(
-            vehiculo.destacado
-              ? 'Destacado'
-              : etiquetaTipo(vehiculo.tipo)
-          )}
-        </span>
+          
+        ${vehiculo.estado === 'reservado'
+  ? '<span class="vehicle-tag vehicle-tag-reservado">RESERVADO</span>'
+  : '<span class="vehicle-tag vehicle-tag-disponible">DISPONIBLE</span>'
+}
+
+        }
 
         <button
           class="vehicle-favorite"
@@ -948,7 +948,7 @@ configurarContactos();
 
 const vehiculosQuery = query(
   collection(db, 'vehiculos'),
-  where('estado', '==', 'disponible')
+  where('estado', 'in', ['disponible', 'reservado'])
 );
 
 onSnapshot(
