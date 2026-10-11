@@ -3,7 +3,7 @@
   "id": "/Gorrion-Automotores/",
   "name": "Gorrión Automotores",
   "short_name": "Gorrión Autos",
-  "description": "Encontrá tu próximo vehículo en Gorrión Automotores.",
+  "description": "Encontrá tu próximo vehículo en Gorrión Automotores. Autos, camionetas y motos.",
   "lang": "es-AR",
   "start_url": "/Gorrion-Automotores/",
   "scope": "/Gorrion-Automotores/",
@@ -15,12 +15,14 @@
     {
       "src": "LogoGA.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "LogoGA.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
