@@ -15,6 +15,37 @@ const ADMIN_UID = 'ZJY8d4caLraTfqJ5aFRxwtPW8Or1';
 const WORKER_URL = 'https://gorrion-automotores-api.ailenalves15.workers.dev';
 const CLOUD_NAME = 'zcg0cygj';
 
+
+async function worker(path, payload = {}) {
+  const user = auth.currentUser;
+
+  if (!user) {
+    throw new Error('Iniciá sesión para realizar esta operación.');
+  }
+
+  const token = await user.getIdToken();
+
+  const response = await fetch(`${WORKER_URL}${path}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(payload)
+  });
+
+  const result = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(
+      result.error || result.message ||
+      `Error del servidor (${response.status}).`
+    );
+  }
+
+  return result;
+}
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
