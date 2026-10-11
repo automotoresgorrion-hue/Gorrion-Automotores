@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "gorrion-automotores-v1";
+const CACHE_NAME = "gorrion-automotores-v2";
 
 const APP_FILES = [
   "./",
@@ -8,6 +8,10 @@ const APP_FILES = [
   "./script.js",
   "./LogoGA.png",
   "./manifest.json",
+  "./manifest-admin.json",
+  "./admin.html",
+  "./admin.css",
+  "./admin.js",
   "./icons/logo-app-192x192.png",
   "./icons/logo-app-512x512.png"
 ];
@@ -18,9 +22,15 @@ self.addEventListener("install", (event) => {
       await Promise.all(
         APP_FILES.map(async (file) => {
           try {
-            await cache.add(file);
+            const response = await fetch(file, { cache: "no-cache" });
+
+            if (response.ok) {
+              await cache.put(file, response);
+            } else {
+              console.warn("Archivo no disponible:", file, response.status);
+            }
           } catch (error) {
-            console.warn("No se pudo guardar en caché:", file);
+            console.warn("No se pudo guardar en caché:", file, error);
           }
         })
       );
@@ -35,7 +45,11 @@ self.addEventListener("activate", (event) => {
     caches.keys().then((keys) =>
       Promise.all(
         keys
-          .filter((key) => key.startsWith("gorrion-automotores-") && key !== CACHE_NAME)
+          .filter(
+            (key) =>
+              key.startsWith("gorrion-automotores-") &&
+              key !== CACHE_NAME
+          )
           .map((key) => caches.delete(key))
       )
     )
@@ -59,7 +73,10 @@ self.addEventListener("fetch", (event) => {
       .then((response) => {
         if (response.ok) {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(request, copy).catch(() => {});
+          });
         }
 
         return response;
@@ -72,16 +89,25 @@ self.addEventListener("fetch", (event) => {
         }
 
         if (request.mode === "navigate") {
-          const home = await caches.match("./index.html");
+          const requestedUrl = new URL(request.url);
+          const isAdmin = requestedUrl.pathname.endsWith("/admin.html");
 
-          if (home) {
-            return home;
+          const fallback = isAdmin
+            ? "./admin.html"
+            : "./index.html";
+
+          const page = await caches.match(fallback);
+
+          if (page) {
+            return page;
           }
         }
 
         return new Response("No hay conexión disponible.", {
           status: 503,
-          headers: { "Content-Type": "text/plain; charset=utf-8" }
+          headers: {
+            "Content-Type": "text/plain; charset=utf-8"
+          }
         });
       })
   );

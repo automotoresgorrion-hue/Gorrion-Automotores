@@ -347,5 +347,64 @@
   })();
 </script>
 
+
+<script>
+  (() => {
+    const parametros = new URLSearchParams(window.location.search);
+    const clave = 'gorrionModoAdmin';
+
+    if (parametros.get('modoAdmin') === '1') {
+      localStorage.setItem(clave, 'true');
+      parametros.delete('modoAdmin');
+
+      const consulta = parametros.toString();
+      const nuevaUrl = window.location.pathname +
+        (consulta ? '?' + consulta : '') +
+        window.location.hash;
+
+      window.history.replaceState({}, '', nuevaUrl);
+    }
+
+    if (parametros.get('modoAdmin') === '0') {
+      localStorage.removeItem(clave);
+      parametros.delete('modoAdmin');
+
+      const consulta = parametros.toString();
+      const nuevaUrl = window.location.pathname +
+        (consulta ? '?' + consulta : '') +
+        window.location.hash;
+
+      window.history.replaceState({}, '', nuevaUrl);
+    }
+
+    if (localStorage.getItem(clave) === 'true') {
+      const boton = document.createElement('a');
+
+      boton.href = './admin.html';
+      boton.textContent = '← Volver a administración';
+      boton.setAttribute('aria-label', 'Volver al panel de administración');
+
+      Object.assign(boton.style, {
+        position: 'fixed',
+        bottom: '20px',
+        left: '20px',
+        zIndex: '9999',
+        background: '#b5121b',
+        color: '#ffffff',
+        padding: '12px 16px',
+        borderRadius: '8px',
+        fontSize: '13px',
+        fontWeight: '700',
+        textDecoration: 'none',
+        boxShadow: '0 4px 14px rgba(0,0,0,0.2)'
+      });
+
+      document.body.appendChild(boton);
+    }
+  })();
+</script>
+</body>
+
+
 </body>
 </html>
