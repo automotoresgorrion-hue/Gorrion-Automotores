@@ -7,7 +7,9 @@ const APP_FILES = [
   "./style.css",
   "./script.js",
   "./LogoGA.png",
-  "./manifest.json"
+  "./manifest.json",
+  "./icons/logo-app-192x192.png",
+  "./icons/logo-app-512x512.png"
 ];
 
 self.addEventListener("install", (event) => {
