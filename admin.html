@@ -1,16 +1,15 @@
-
 <!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
- <meta name="theme-color" content="#d71920">
+  <meta name="theme-color" content="#d71920">
 
-<link rel="manifest" href="manifest-admin.json">
-<link rel="icon" type="image/png" href="icons/logo-app-192x192.png">
-<meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest-admin.json">
+  <link rel="icon" type="image/png" href="icons/logo-app-192x192.png">
+  <meta name="mobile-web-app-capable" content="yes">
 
-<title>Administración | Gorrión Automotores</title>
+  <title>Administración | Gorrión Automotores</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,59 +26,55 @@
       width: 100%;
     }
 
- 
-/* ENCABEZADO: LOGO CENTRADO Y COMPACTO */
-.admin-header {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 95px;
-  padding: 12px 180px;
-  background: #ffffff;
-  color: #111111;
-  border-bottom: 1px solid #e5e5e5;
-}
+    .admin-header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 95px;
+      padding: 12px 180px;
+      background: #fff;
+      color: #111;
+      border-bottom: 1px solid #e5e5e5;
+    }
 
-.admin-header .admin-brand {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  text-decoration: none;
-}
+    .admin-header .admin-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      text-decoration: none;
+    }
 
-.admin-header .admin-logo {
-  display: block;
-  width: auto;
-  height: 65px;
-  max-width: 220px;
-  object-fit: contain;
-}
+    .admin-header .admin-logo {
+      display: block;
+      width: auto;
+      height: 65px;
+      max-width: 220px;
+      object-fit: contain;
+    }
 
-.admin-header .back-link {
-  position: absolute;
-  top: 50%;
-  right: 24px;
-  transform: translateY(-50%);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 14px;
-  background: #111111;
-  color: #ffffff;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 800;
-  white-space: nowrap;
-}
+    .admin-header .back-link {
+      position: absolute;
+      top: 50%;
+      right: 24px;
+      transform: translateY(-50%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      background: #111;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
 
-.admin-header .back-link:hover {
-  background: #d71920;
-}
+    .admin-header .back-link:hover {
+      background: #d71920;
+    }
 
-
-    /* EQUIPAMIENTO Y ACCESORIOS: DOS COLUMNAS */
     .equipment-columns {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -99,7 +94,6 @@
       margin: .75rem 0 .45rem;
     }
 
-    /* OPCIONES UNA DEBAJO DE OTRA */
     .equipment-options {
       display: grid;
       grid-template-columns: 1fr;
@@ -119,74 +113,61 @@
       margin-top: .25rem;
     }
 
-   
+    .equipment-custom-category {
+      box-sizing: border-box;
+      width: 100%;
+      min-width: 0;
+      margin: 1.25rem 0 0;
+      padding: 1rem;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      background: #fff;
+    }
 
-/* EQUIPAMIENTO PERSONALIZADO */
-.equipment-custom-category {
-  box-sizing: border-box;
-  width: 100%;
-  min-width: 0;
-  margin: 1.25rem 0 0;
-  padding: 1rem;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
-  background: #fff;
-}
+    .equipment-custom-category h3 {
+      margin: 0 0 .5rem;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
 
-.equipment-custom-category h3 {
-  margin: 0 0 0.5rem;
-  line-height: 1.4;
-  overflow-wrap: anywhere;
-}
+    .equipment-custom-category .equipment-help {
+      margin: 0 0 1rem;
+      line-height: 1.5;
+    }
 
-.equipment-custom-category .equipment-help {
-  margin: 0 0 1rem;
-  line-height: 1.5;
-}
+    .equipment-add-row {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: .5rem;
+      width: 100%;
+      margin: 0;
+    }
 
-.equipment-add-row {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0.5rem;
-  width: 100%;
-  margin: 0;
-}
+    .equipment-add-row label {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+    }
 
-.equipment-add-row label {
-  display: block;
-  width: 100%;
-  min-width: 0;
-  margin: 0;
-}
+    .equipment-add-row input {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      min-width: 0;
+      margin-top: .35rem;
+    }
 
-.equipment-add-row input {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  min-width: 0;
-  margin-top: 0.35rem;
-}
-
-.equipment-add-row .btn {
-  align-self: flex-start;
-  width: auto;
-  min-height: 38px;
-  padding: 0.6rem 1rem;
-  margin: 0;
-  font-size: 0.85rem;
-  white-space: normal;
-}
-
-@media (max-width: 560px) {
-  .equipment-custom-category {
-    padding: 0.75rem;
-  }
-
-  .equipment-add-row .btn {
-    max-width: 100%;
-  }
-}
+    .equipment-add-row .btn {
+      align-self: flex-start;
+      width: auto;
+      min-height: 38px;
+      padding: .6rem 1rem;
+      margin: 0;
+      font-size: .85rem;
+      white-space: normal;
+    }
 
     .admin-vehicle {
       display: grid;
@@ -267,6 +248,21 @@
       grid-column: 1 / -1;
     }
 
+    /* BOTÓN DE CARGA SEPARADO DE LAS PUBLICACIONES */
+    .vehicle-form-toggle {
+      display: flex;
+      justify-content: flex-start;
+      margin: 1.25rem 0;
+    }
+
+    .vehicle-form-toggle .btn {
+      min-width: 210px;
+    }
+
+    #vehicleFormPanel {
+      margin-bottom: 1.5rem;
+    }
+
     @media (max-width: 760px) {
       .admin-header {
         flex-direction: column;
@@ -284,7 +280,6 @@
         transform: none;
       }
 
-      /* En celulares, una sección debajo de la otra */
       .equipment-columns {
         grid-template-columns: 1fr;
       }
@@ -302,6 +297,25 @@
         width: 95px;
         height: 85px;
       }
+
+      .vehicle-form-toggle {
+        justify-content: stretch;
+      }
+
+      .vehicle-form-toggle .btn {
+        width: 100%;
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .equipment-custom-category {
+        padding: .75rem;
+      }
+
+      .equipment-add-row .btn {
+        max-width: 100%;
+      }
     }
   </style>
 
@@ -309,14 +323,9 @@
 </head>
 
 <body>
-  <!-- ENCABEZADO CON EL LOGO OFICIAL -->
   <header class="admin-header">
     <a class="admin-brand" href="index.html" aria-label="Gorrión Automotores">
-      <img
-        src="LogoGA.png"
-        alt="Gorrión Automotores"
-        class="admin-logo"
-      >
+      <img src="LogoGA.png" alt="Gorrión Automotores" class="admin-logo">
     </a>
 
     <a class="back-link" href="index.html">← Ver sitio público</a>
@@ -324,7 +333,6 @@
 
   <main class="admin-main">
 
-    <!-- INICIO DE SESIÓN -->
     <section class="login-panel" id="loginPanel">
       <p class="eyebrow">ACCESO RESTRINGIDO</p>
       <h1>Panel de administración</h1>
@@ -355,15 +363,11 @@
           >
         </label>
 
-        <button class="btn primary" type="submit">
-          INGRESAR
-        </button>
-
+        <button class="btn primary" type="submit">INGRESAR</button>
         <p class="message" id="loginMessage" role="status"></p>
       </form>
     </section>
 
-    <!-- PANEL DE ADMINISTRACIÓN -->
     <section class="dashboard" id="dashboard" hidden>
 
       <div class="dashboard-heading">
@@ -380,268 +384,261 @@
         </button>
       </div>
 
-      <div class="admin-columns">
+      <!-- BOTÓN INDEPENDIENTE, ARRIBA DE LAS PUBLICACIONES -->
+      <div class="vehicle-form-toggle">
+        <button
+          class="btn primary"
+          id="newVehicleBtn"
+          type="button"
+          aria-expanded="false"
+          aria-controls="vehicleFormPanel"
+        >
+          + PUBLICAR VEHÍCULO
+        </button>
+      </div>
 
-        <!-- FORMULARIO DE VEHÍCULOS -->
-        <section class="panel form-panel">
+      <!-- FORMULARIO: OCULTO HASTA PRESIONAR EL BOTÓN -->
+      <section class="panel form-panel" id="vehicleFormPanel" hidden>
 
-          <div class="panel-heading">
-            <h2 id="formTitle">Publicar vehículo</h2>
+        <div class="panel-heading">
+          <h2 id="formTitle">Publicar vehículo</h2>
 
-            <button
-              class="text-button"
-              id="cancelEditBtn"
-              type="button"
-              hidden
-            >
-              Cancelar edición
-            </button>
-          </div>
+          <button
+            class="text-button"
+            id="cancelEditBtn"
+            type="button"
+            hidden
+          >
+            Cancelar edición
+          </button>
+        </div>
 
-          <form id="vehicleForm">
+        <form id="vehicleForm">
+          <input id="vehicleId" type="hidden">
 
-            <input id="vehicleId" type="hidden">
+          <div class="form-grid">
 
-            <div class="form-grid">
+            <label>
+              Tipo de vehículo
+              <select id="tipo" required>
+                <option value="auto">Auto</option>
+                <option value="camioneta">Camioneta</option>
+                <option value="moto">Moto</option>
+              </select>
+            </label>
 
-              <label>
-                Tipo de vehículo
-                <select id="tipo" required>
-                  <option value="auto">Auto</option>
-                  <option value="camioneta">Camioneta</option>
-                  <option value="moto">Moto</option>
-                </select>
-              </label>
+            <label>
+              Condición
+              <select id="condicion">
+                <option value="Usado">Usado</option>
+                <option value="Nuevo">Nuevo</option>
+              </select>
+            </label>
 
-              <label>
-                Condición
-                <select id="condicion">
-                  <option value="Usado">Usado</option>
-                  <option value="Nuevo">Nuevo</option>
-                </select>
-              </label>
+            <label>
+              Marca
+              <select id="marca" required>
+                <option value="">Seleccioná una marca</option>
+              </select>
+            </label>
 
-              <label>
-                Marca
-                <select id="marca" required>
-                  <option value="">Seleccioná una marca</option>
-                </select>
-              </label>
+            <label id="marcaOtraLabel" hidden>
+              Especificá la marca
+              <input
+                id="marcaOtra"
+                maxlength="60"
+                autocomplete="off"
+                placeholder="Escribí la marca"
+              >
+            </label>
 
-              <label id="marcaOtraLabel" hidden>
-                Especificá la marca
-                <input
-                  id="marcaOtra"
-                  maxlength="60"
-                  autocomplete="off"
-                  placeholder="Escribí la marca"
-                >
-              </label>
+            <label>
+              Modelo
+              <input id="modelo" required maxlength="80">
+            </label>
 
-              <label>
-                Modelo
-                <input id="modelo" required maxlength="80">
-              </label>
+            <label class="full">
+              Versión
+              <input
+                id="version"
+                maxlength="100"
+                placeholder="Ej. XEI 2.0 CVT"
+              >
+            </label>
 
-              <label class="full">
-                Versión
-                <input
-                  id="version"
-                  maxlength="100"
-                  placeholder="Ej. XEI 2.0 CVT"
-                >
-              </label>
+            <label>
+              Año
+              <input id="anio" type="number" min="1900" max="2100" required>
+            </label>
 
-              <label>
-                Año
-                <input
-                  id="anio"
-                  type="number"
-                  min="1900"
-                  max="2100"
-                  required
-                >
-              </label>
+            <label>
+              Kilómetros
+              <input id="kilometros" type="number" min="0">
+            </label>
 
-              <label>
-                Kilómetros
-                <input id="kilometros" type="number" min="0">
-              </label>
+            <label>
+              Precio
+              <input
+                id="precio"
+                type="number"
+                min="0"
+                step="1"
+                placeholder="Vacío si es a consultar"
+              >
+            </label>
 
-              <label>
-                Precio
-                <input
-                  id="precio"
-                  type="number"
-                  min="0"
-                  step="1"
-                  placeholder="Vacío si es a consultar"
-                >
-              </label>
+            <label>
+              Moneda
+              <select id="moneda">
+                <option value="ARS">Pesos (ARS)</option>
+                <option value="USD">Dólares (USD)</option>
+              </select>
+            </label>
 
-              <label>
-                Moneda
-                <select id="moneda">
-                  <option value="ARS">Pesos (ARS)</option>
-                  <option value="USD">Dólares (USD)</option>
-                </select>
-              </label>
+            <label>
+              Combustible
+              <select id="combustible">
+                <option value="">Seleccionar</option>
+                <option value="Nafta">Nafta</option>
+                <option value="Diésel">Diésel</option>
+                <option value="GNC">GNC</option>
+                <option value="Nafta/GNC">Nafta/GNC</option>
+                <option value="Eléctrico">Eléctrico</option>
+                <option value="Híbrido">Híbrido</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </label>
 
-              <label>
-                Combustible
-                <select id="combustible">
-                  <option value="">Seleccionar</option>
-                  <option value="Nafta">Nafta</option>
-                  <option value="Diésel">Diésel</option>
-                  <option value="GNC">GNC</option>
-                  <option value="Nafta/GNC">Nafta/GNC</option>
-                  <option value="Eléctrico">Eléctrico</option>
-                  <option value="Híbrido">Híbrido</option>
-                  <option value="Otro">Otro</option>
-                </select>
-              </label>
+            <label>
+              Transmisión
+              <select id="transmision">
+                <option value="">Seleccionar</option>
+                <option value="Manual">Manual</option>
+                <option value="Automática">Automática</option>
+                <option value="CVT">CVT</option>
+                <option value="Semiautomática">Semiautomática</option>
+                <option value="Otra">Otra</option>
+              </select>
+            </label>
 
-              <label>
-                Transmisión
-                <select id="transmision">
-                  <option value="">Seleccionar</option>
-                  <option value="Manual">Manual</option>
-                  <option value="Automática">Automática</option>
-                  <option value="CVT">CVT</option>
-                  <option value="Semiautomática">Semiautomática</option>
-                  <option value="Otra">Otra</option>
-                </select>
-              </label>
+            <label>
+              Color
+              <select id="color">
+                <option value="">Seleccionar</option>
+                <option value="Blanco">Blanco</option>
+                <option value="Negro">Negro</option>
+                <option value="Gris">Gris</option>
+                <option value="Plateado">Plateado</option>
+                <option value="Rojo">Rojo</option>
+                <option value="Azul">Azul</option>
+                <option value="Verde">Verde</option>
+                <option value="Bordó">Bordó</option>
+                <option value="Beige">Beige</option>
+                <option value="Marrón">Marrón</option>
+                <option value="Amarillo">Amarillo</option>
+                <option value="Naranja">Naranja</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </label>
 
-              <label>
-                Color
-                <select id="color">
-                  <option value="">Seleccionar</option>
-                  <option value="Blanco">Blanco</option>
-                  <option value="Negro">Negro</option>
-                  <option value="Gris">Gris</option>
-                  <option value="Plateado">Plateado</option>
-                  <option value="Rojo">Rojo</option>
-                  <option value="Azul">Azul</option>
-                  <option value="Verde">Verde</option>
-                  <option value="Bordó">Bordó</option>
-                  <option value="Beige">Beige</option>
-                  <option value="Marrón">Marrón</option>
-                  <option value="Amarillo">Amarillo</option>
-                  <option value="Naranja">Naranja</option>
-                  <option value="Otro">Otro</option>
-                </select>
-              </label>
+            <!-- admin.js genera aquí los campos adicionales -->
 
-              <!-- admin.js genera aquí los campos según el vehículo -->
+            <label class="full">
+              Fotos del vehículo
+              <input
+                id="fotos"
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/avif"
+                multiple
+              >
+              <small>
+                Podés seleccionar varias fotos. Cada archivo puede pesar
+                hasta 8 MB.
+              </small>
+            </label>
 
-              <!-- FOTOS -->
-              <label class="full">
-                Fotos del vehículo
-                <input
-                  id="fotos"
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp,image/avif"
-                  multiple
-                >
-                <small>
-                  Podés seleccionar varias fotos. Cada archivo puede pesar
-                  hasta 8 MB.
-                </small>
-              </label>
+            <div class="full" id="existingPhotos"></div>
 
-              <div class="full" id="existingPhotos"></div>
+            <label class="full">
+              Descripción
+              <textarea
+                id="descripcion"
+                rows="4"
+                maxlength="3000"
+                placeholder="Detalles importantes del vehículo"
+              ></textarea>
+            </label>
 
-              <!-- DESCRIPCIÓN -->
-              <label class="full">
-                Descripción
-                <textarea
-                  id="descripcion"
-                  rows="4"
-                  maxlength="3000"
-                  placeholder="Detalles importantes del vehículo"
-                ></textarea>
-              </label>
-
-              <!-- EQUIPAMIENTO Y ACCESORIOS -->
-              <div class="full equipment-picker" id="equipmentPicker">
-                <p class="equipment-help">
-                  El equipamiento y los accesorios aparecerán según el tipo
-                  de vehículo seleccionado.
-                </p>
-              </div>
-
-              <!-- OPCIONES DE PUBLICACIÓN -->
-              <div class="full publication-options">
-                <label>
-                  <input id="destacado" type="checkbox">
-                  Destacar esta publicación
-                </label>
-
-                <label>
-                  <input id="permuta" type="checkbox">
-                  Acepta permuta
-                </label>
-
-                <label>
-                  <input id="financiacion" type="checkbox">
-                  Ofrece financiación
-                </label>
-              </div>
-
+            <div class="full equipment-picker" id="equipmentPicker">
+              <p class="equipment-help">
+                El equipamiento y los accesorios aparecerán según el tipo
+                de vehículo seleccionado.
+              </p>
             </div>
 
-            <p class="message" id="formMessage" role="status"></p>
+            <div class="full publication-options">
+              <label>
+                <input id="destacado" type="checkbox">
+                Destacar esta publicación
+              </label>
 
-            <button class="btn primary" id="saveVehicleBtn" type="submit">
-              PUBLICAR VEHÍCULO
-            </button>
+              <label>
+                <input id="permuta" type="checkbox">
+                Acepta permuta
+              </label>
 
-          </form>
-        </section>
+              <label>
+                <input id="financiacion" type="checkbox">
+                Ofrece financiación
+              </label>
+            </div>
 
-        <!-- LISTADO DE PUBLICACIONES -->
-        <section class="panel listings-panel">
-
-          <div class="panel-heading">
-            <h2>Publicaciones</h2>
-
-            <span>
-              Total:
-              <strong id="listingCount">0</strong>
-            </span>
           </div>
 
-          <p class="muted">
-            Desde acá podés editar tus vehículos.
-          </p>
+          <p class="message" id="formMessage" role="status"></p>
 
-          <p class="message" id="listingMessage" role="status"></p>
+          <button class="btn primary" id="saveVehicleBtn" type="submit">
+            PUBLICAR VEHÍCULO
+          </button>
+        </form>
+      </section>
 
-          <div id="vehicleList">
-            <p class="muted">Cargando publicaciones...</p>
-          </div>
+      <!-- PUBLICACIONES, SIN EL BOTÓN DE CARGA -->
+      <section class="panel listings-panel">
 
-        </section>
+        <div class="panel-heading">
+          <h2>Publicaciones</h2>
 
-      </div>
+          <span>
+            Total: <strong id="listingCount">0</strong>
+          </span>
+        </div>
+
+        <p class="muted">
+          Desde acá podés editar tus vehículos.
+        </p>
+
+        <p class="message" id="listingMessage" role="status"></p>
+
+        <div id="vehicleList">
+          <p class="muted">Cargando publicaciones...</p>
+        </div>
+
+      </section>
     </section>
   </main>
-  
-<script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", async () => {
-      try {
-        await navigator.serviceWorker.register("./service-worker.js");
-        console.log("Service Worker registrado correctamente.");
-      } catch (error) {
-        console.error("Error al registrar el Service Worker:", error);
-      }
-    });
-  }
-</script>
 
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", async () => {
+        try {
+          await navigator.serviceWorker.register("./service-worker.js");
+          console.log("Service Worker registrado correctamente.");
+        } catch (error) {
+          console.error("Error al registrar el Service Worker:", error);
+        }
+      });
+    }
+  </script>
 </body>
 </html>
-
-

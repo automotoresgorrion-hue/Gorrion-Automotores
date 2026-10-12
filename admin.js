@@ -870,6 +870,25 @@ $('existingPhotos').addEventListener('click', e => {
   }
 });
 
+function abrirFormularioVehiculo() {
+  $('vehicleFormPanel').hidden = false;
+
+  $('newVehicleBtn').textContent = 'CERRAR CARGA';
+  $('newVehicleBtn').setAttribute('aria-expanded', 'true');
+
+  $('vehicleFormPanel').scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
+}
+
+function cerrarFormularioVehiculo() {
+  $('vehicleFormPanel').hidden = true;
+
+  $('newVehicleBtn').textContent = '+ PUBLICAR VEHÍCULO';
+  $('newVehicleBtn').setAttribute('aria-expanded', 'false');
+}
+
 function resetForm() {
   $('vehicleForm').reset();
 
@@ -894,6 +913,7 @@ function resetForm() {
 }
 
 function beginEdit(v) {
+abrirFormularioVehiculo();
   $('vehicleId').value = v.id;
   $('tipo').value = v.tipo || 'auto';
 
@@ -1140,14 +1160,16 @@ updatedAt: serverTimestamp()
     }
 
     resetForm();
+    cerrarFormularioVehiculo();
 
     msg(
-      'formMessage',
+      'listingMessage',
       id
         ? 'Cambios guardados correctamente.'
         : 'Vehículo publicado correctamente.',
       'success'
     );
+
   } catch (err) {
     console.error(err);
 
@@ -1171,7 +1193,20 @@ updatedAt: serverTimestamp()
   }
 });
 
-$('cancelEditBtn').addEventListener('click', resetForm);
+$('newVehicleBtn').addEventListener('click', () => {
+  if (!$('vehicleFormPanel').hidden) {
+    cerrarFormularioVehiculo();
+    return;
+  }
+
+  resetForm();
+  abrirFormularioVehiculo();
+});
+
+$('cancelEditBtn').addEventListener('click', () => {
+  resetForm();
+  cerrarFormularioVehiculo();
+});
 
 
 function prepararHistorialVendidos() {
@@ -1409,7 +1444,7 @@ $('vehicleList').addEventListener('click', async e => {
 
         transaction.update(referencia, {
           estado: nuevoEstado,
-          updatedAt: serverTimestamp()
+                updatedAt: serverTimestamp()
         });
 
         return;
@@ -1485,6 +1520,9 @@ $('vehicleList').addEventListener('click', async e => {
 });
 
 function startDashboard() {
+$('vehicleFormPanel').hidden = true;
+$('newVehicleBtn').textContent = '+ PUBLICAR VEHÍCULO';
+$('newVehicleBtn').setAttribute('aria-expanded', 'false');
   $('loginPanel').hidden = true;
   $('dashboard').hidden = false;
 
