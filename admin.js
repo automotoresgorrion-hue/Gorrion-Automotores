@@ -1304,9 +1304,10 @@ function renderList() {
   </span>
 `;
 
-        let accionesEstado = '';
+        
+let accionesEstado = '';
 
-        if (estado === 'disponible') {
+if (estado === 'disponible') {
   accionesEstado = `
     <button type="button" data-reservar="${esc(v.id)}">
       Reservar
