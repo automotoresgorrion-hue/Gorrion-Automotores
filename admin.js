@@ -1312,7 +1312,7 @@ function renderList() {
       Reservar
     </button>
   `;
-} else if (estado === 'reservado') {
+} else if (estado === 'reservado' || estado === 'señado') {
   accionesEstado = `
     <button type="button" data-disponible="${esc(v.id)}">
       Volver a disponible
@@ -1434,21 +1434,21 @@ $('vehicleList').addEventListener('click', async e => {
         );
       }
 
-      // DISPONIBLE O RESERVADO
-      if (nuevoEstado === 'disponible' || nuevoEstado === 'reservado') {
-        if (!['disponible', 'reservado'].includes(estadoActual)) {
-          throw new Error(
-            'Solo se puede cambiar a disponible o reservado desde esos estados.'
-          );
-        }
+      // DISPONIBLE, RESERVADO O SEÑADO
+if (nuevoEstado === 'disponible' || nuevoEstado === 'reservado') {
+  if (!['disponible', 'reservado', 'señado'].includes(estadoActual)) {
+    throw new Error(
+      'No se puede cambiar a disponible o reservado desde este estado.'
+    );
+  }
 
-        transaction.update(referencia, {
-          estado: nuevoEstado,
-                updatedAt: serverTimestamp()
-        });
+  transaction.update(referencia, {
+    estado: nuevoEstado,
+    updatedAt: serverTimestamp()
+  });
 
-        return;
-      }
+  return;
+}
 
       // SEÑADO: permanece en vehiculos y NO pasa al historial.
       if (nuevoEstado === 'señado') {
