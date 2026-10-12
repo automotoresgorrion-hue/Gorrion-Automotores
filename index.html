@@ -318,36 +318,42 @@
 </a>
 
 <script>
-  (() => {
-    const clave = "gorrionModoAdmin";
-    const boton = document.getElementById("volverAdmin");
-    const parametros = new URLSearchParams(window.location.search);
+(() => {
+  const boton = document.getElementById("volverAdmin");
+  const parametros = new URLSearchParams(window.location.search);
 
-    if (parametros.get("modoAdmin") === "1") {
-      localStorage.setItem(clave, "true");
-      window.history.replaceState(
-        {},
-        document.title,
-        window.location.pathname + window.location.hash
-      );
+  // Si se llega desde administración, mostrar el botón
+  if (parametros.get("modoAdmin") === "1") {
+    boton.style.display = "block";
+
+    // Guardar el modo en este almacenamiento, si está disponible
+    try {
+      localStorage.setItem("gorrionModoAdmin", "true");
+    } catch (error) {
+      console.warn("No se pudo guardar el modo administrador.");
     }
 
-    if (parametros.get("modoAdmin") === "0") {
-      localStorage.removeItem(clave);
-      window.history.replaceState(
-        {},
-        document.title,
-        window.location.pathname + window.location.hash
-      );
-    }
+    // Limpiar el parámetro sin recargar la página
+    parametros.delete("modoAdmin");
 
-    if (localStorage.getItem(clave) === "true") {
+    const consulta = parametros.toString();
+    const nuevaUrl = window.location.pathname +
+      (consulta ? "?" + consulta : "") +
+      window.location.hash;
+
+    window.history.replaceState({}, document.title, nuevaUrl);
+    return;
+  }
+
+  // Mantener el botón visible si el modo ya estaba guardado
+  try {
+    if (localStorage.getItem("gorrionModoAdmin") === "true") {
       boton.style.display = "block";
     }
-  })();
+  } catch (error) {
+    console.warn("No se pudo consultar el modo administrador.");
+  }
+})();
 </script>
-
-
-</body>
 </body>
 </html>

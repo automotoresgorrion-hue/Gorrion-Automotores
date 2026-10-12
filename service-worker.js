@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "gorrion-automotores-v2";
+const CACHE_NAME = "gorrion-automotores-v3";
 
 const APP_FILES = [
   "./",
